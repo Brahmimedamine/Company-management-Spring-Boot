@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Company Management System - Stagiaires</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Company Management System</a>
+
+    <!-- Toggler/collapsible Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/stagiaires}">Stagiaire Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/employees}">Employee Management</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <h1>List Stagiaires</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <a th:href="@{/stagiaires/new}" class="btn btn-primary btn-sm mb-3">Add Stagiaire</a>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>Stagiaire First Name</th>
+            <th>Stagiaire Last Name</th>
+            <th>Stagiaire Email</th>
+            <th>Encadrer par</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="stagiaire : ${stagiaires}">
+            <td th:text="${stagiaire.firstName}"></td>
+            <td th:text="${stagiaire.lastName}"></td>
+            <td th:text="${stagiaire.email}"></td>
+            <td>
+                <span th:if="${stagiaire.encadrerPar != null}"
+                      th:text="${stagiaire.encadrerPar.firstName + ' ' + stagiaire.encadrerPar.lastName}">
+                </span>
+                <span th:unless="${stagiaire.encadrerPar != null}">Not Encadré</span>
+            </td>
+            <td>
+                <!-- Provide the correct URL path to navigate to a specific Stagiaire's details page -->
+                <a th:href="@{/stagiaires/edit/{id}(id=${stagiaire.id})}" class="btn btn-primary">Update</a>
+                <form th:action="@{/stagiaires/delete/{id}(id=${stagiaire.id})}" method="post" style="display: inline-block;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Add the link to switch to the Employee Management page -->
+    <div class="text-center">
+        <a th:href="@{/employees}" class="btn btn-primary">Switch to Employee Management</a>
+    </div>
+</div>
+
+</body>
+</html>
