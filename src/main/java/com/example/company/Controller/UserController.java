@@ -26,14 +26,7 @@ public class UserController {
 		super();
 		this.userService=userService;
 	}
-	@GetMapping("/")
-	public String home() {
-		return "home";
-	}
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
+	
 
 	@ModelAttribute("user")
 	public UserRegistrationDto userRegistrationDto() {
