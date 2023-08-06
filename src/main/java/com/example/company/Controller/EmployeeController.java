@@ -13,12 +13,12 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @GetMapping("/")
+    @GetMapping("/employees")
     public String redirectToEmployees() {
         return "redirect:/employees";
     }
 
-    @GetMapping("/employees")
+    @GetMapping("/listEmployees")
     public String listEmployees(Model model) {
         model.addAttribute("employees", employeeService.getAllEmployees());
         return "employees";

@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ProjectController {
 	
 	
-	
-	
+	@GetMapping("/")
+	public String home() {
+		return "employees";
+	}
 	@GetMapping("/login")
 	public String login() {
 		return "login";
