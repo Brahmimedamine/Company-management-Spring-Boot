@@ -1,6 +1,5 @@
 package com.example.company.Service.impl;
 
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -24,19 +23,19 @@ import com.example.company.dto.UserRegistrationDto;
 
 @Service
 public class UserService implements UserDetailsService {
-
+    
     private UserRepo userRepo;
 
-    @Autowired
+	@Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     public UserService(UserRepo userRepo) {
-        super();
-        this.userRepo = userRepo;
-    }
+		super();
+		this.userRepo = userRepo;
+	}
 
     public User save(UserRegistrationDto userdto) {
-        User user = new User(userdto.getUserId(), userdto.getUserName(), userdto.getEmail(),
+        User user = new User(userdto.getUserId(),  userdto.getUserName(), userdto.getEmail(),
                 userdto.getAdress(), userdto.getMobile(), passwordEncoder.encode(userdto.getPassword()),Arrays.asList(new Role("ROLE_USER")));
         return userRepo.save(user);
     }
@@ -47,20 +46,20 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-
+       
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-
+    	return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+    	
     }
-
+    
     public User getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userRepo.findByEmail(auth.getName());
     }
 
-
+    
     public void updateUser(UserRegistrationDto userDto) {
         User user = getCurrentUser();
         user.setUserName(userDto.getUserName());
