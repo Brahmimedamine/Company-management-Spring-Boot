@@ -11,7 +11,7 @@ public class ProjectController {
 	
 	@GetMapping("/")
 	public String home() {
-		return "employees";
+		return "home";
 	}
 	@GetMapping("/login")
 	public String login() {

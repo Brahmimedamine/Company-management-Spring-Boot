@@ -15,7 +15,7 @@ public class EmployeeController {
 
     @GetMapping("/employees")
     public String redirectToEmployees() {
-        return "redirect:/employees";
+        return "employees";
     }
 
     @GetMapping("/listEmployees")
